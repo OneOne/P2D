@@ -15,7 +15,7 @@ public class Player : MonoBehaviour {
 		_rigidBody2D = GetComponent<Rigidbody2D> ();
 	}
 	
-	private bool _facingRight = true;
+	private bool _facingRight = false;
 	private bool _onGround =  false;
 
 	private Rigidbody2D _rigidBody2D;
@@ -30,7 +30,7 @@ public class Player : MonoBehaviour {
 	void FixedUpdate () {
 		float move = Input.GetAxis ("Horizontal");
 
-		_onGround = Physics2D.OverlapCircle (GroundCheck.position, GroundRaduis, GroundLayer);
+		_onGround = Physics2D.OverlapCircle(GroundCheck.position, GroundRaduis, GroundLayer);
 
 				
 		_rigidBody2D.velocity = new Vector2 (move * MaxMoveSpeed, _rigidBody2D.velocity.y);
