@@ -17,13 +17,23 @@ public class Player : MonoBehaviour {
 	
 	private bool _facingRight = false;
 	private bool _onGround =  false;
+	private bool _firstJump =  false;
+	private bool _secondJump =  false;
 
 	private Rigidbody2D _rigidBody2D;
 
 	void Update() {
-		if (_onGround && Input.GetButtonDown ("Jump")) {
-			_onGround = false;
-			_rigidBody2D.AddForce (new Vector2 (0, JumpForce));
+		if (Input.GetButtonDown ("Jump")) {
+			if (_onGround) {
+				_onGround = false;
+				_rigidBody2D.AddForce (new Vector2 (0, JumpForce));
+			} else if (_firstJump && !_secondJump) {
+				_secondJump = true;
+				_rigidBody2D.AddForce (new Vector2 (0, JumpForce));
+			}
+		}
+		if (Input.GetButtonUp ("Jump")) {
+			_firstJump = true;
 		}
 	}
 
@@ -31,6 +41,8 @@ public class Player : MonoBehaviour {
 		float move = Input.GetAxis ("Horizontal");
 
 		_onGround = Physics2D.OverlapCircle(GroundCheck.position, GroundRaduis, GroundLayer);
+		if (_onGround)
+			_secondJump = false;
 
 				
 		_rigidBody2D.velocity = new Vector2 (move * MaxMoveSpeed, _rigidBody2D.velocity.y);

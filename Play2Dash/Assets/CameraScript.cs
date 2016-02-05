@@ -10,7 +10,7 @@ public class CameraScript : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void Update () {
 		Vector3 pos = this.transform.position;
 		pos.x = ObjectToFollow.transform.position.x;
 		pos.y = ObjectToFollow.transform.position.y;
