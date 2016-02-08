@@ -1,17 +1,20 @@
 fileFormatVersion: 2
-guid: 4c605fa39c3cb654f97d1da65d58d3a7
-timeCreated: 1454880566
+guid: c23ea4d7ecfe4374a9040eee6b11ebb3
+timeCreated: 1454880617
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: jump_0
-    21300002: jump_1
-    21300004: jump_2
-    21300006: jump_3
-    21300008: jump_4
-    21300010: jump_5
-    21300012: jump_6
-    21300014: jump_7
+    21300000: megaman_idle_0
+    21300002: megaman_idle_1
+    21300004: megaman_idle_2
+    21300006: megaman_idle_3
+    21300008: megaman_idle_4
+    21300010: megaman_idle_5
+    21300012: megaman_idle_6
+    21300014: megaman_idle_7
+    21300016: megaman_idle_8
+    21300018: megaman_idle_9
+    21300020: megaman_idle_10
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -58,17 +61,17 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: jump_0
+    - name: megaman_idle_0
       rect:
         serializedVersion: 2
-        x: 1
+        x: 0
         y: 700
         width: 256
         height: 350
-      alignment: 7
+      alignment: 9
       pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: jump_1
+    - name: megaman_idle_1
       rect:
         serializedVersion: 2
         x: 256
@@ -78,7 +81,7 @@ TextureImporter:
       alignment: 9
       pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: jump_2
+    - name: megaman_idle_2
       rect:
         serializedVersion: 2
         x: 512
@@ -88,7 +91,17 @@ TextureImporter:
       alignment: 9
       pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: jump_3
+    - name: megaman_idle_3
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 700
+        width: 256
+        height: 350
+      alignment: 9
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: megaman_idle_4
       rect:
         serializedVersion: 2
         x: 0
@@ -98,7 +111,7 @@ TextureImporter:
       alignment: 9
       pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: jump_4
+    - name: megaman_idle_5
       rect:
         serializedVersion: 2
         x: 256
@@ -108,7 +121,7 @@ TextureImporter:
       alignment: 9
       pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: jump_5
+    - name: megaman_idle_6
       rect:
         serializedVersion: 2
         x: 512
@@ -118,7 +131,17 @@ TextureImporter:
       alignment: 9
       pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: jump_6
+    - name: megaman_idle_7
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 350
+        width: 256
+        height: 350
+      alignment: 9
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: megaman_idle_8
       rect:
         serializedVersion: 2
         x: 0
@@ -128,10 +151,20 @@ TextureImporter:
       alignment: 9
       pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: jump_7
+    - name: megaman_idle_9
       rect:
         serializedVersion: 2
         x: 256
+        y: 0
+        width: 256
+        height: 350
+      alignment: 9
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: megaman_idle_10
+      rect:
+        serializedVersion: 2
+        x: 512
         y: 0
         width: 256
         height: 350

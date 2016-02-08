@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: c58d737ea0cf14d47ba6960295a7003d
-timeCreated: 1454720643
+timeCreated: 1454879902
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -64,8 +64,8 @@ TextureImporter:
         y: 700
         width: 256
         height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: megamanSpriteSheet_256x350_1
       rect:
@@ -74,8 +74,8 @@ TextureImporter:
         y: 700
         width: 256
         height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: megamanSpriteSheet_256x350_2
       rect:
@@ -84,8 +84,8 @@ TextureImporter:
         y: 700
         width: 256
         height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: megamanSpriteSheet_256x350_3
       rect:
@@ -94,8 +94,8 @@ TextureImporter:
         y: 350
         width: 256
         height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: megamanSpriteSheet_256x350_4
       rect:
@@ -104,8 +104,8 @@ TextureImporter:
         y: 350
         width: 256
         height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: megamanSpriteSheet_256x350_5
       rect:
@@ -114,8 +114,8 @@ TextureImporter:
         y: 350
         width: 256
         height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: megamanSpriteSheet_256x350_6
       rect:
@@ -124,8 +124,8 @@ TextureImporter:
         y: 0
         width: 256
         height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 

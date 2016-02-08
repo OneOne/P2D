@@ -1,17 +1,19 @@
 fileFormatVersion: 2
-guid: 4c605fa39c3cb654f97d1da65d58d3a7
-timeCreated: 1454880566
+guid: 7cd38c63922df20409fee27398896b43
+timeCreated: 1454880604
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: jump_0
-    21300002: jump_1
-    21300004: jump_2
-    21300006: jump_3
-    21300008: jump_4
-    21300010: jump_5
-    21300012: jump_6
-    21300014: jump_7
+    21300000: megaman_dash_0
+    21300002: megaman_dash_1
+    21300004: megaman_dash_2
+    21300006: megaman_dash_3
+    21300008: megaman_dash_4
+    21300010: megaman_dash_5
+    21300012: megaman_dash_6
+    21300014: megaman_dash_7
+    21300016: megaman_dash_8
+    21300018: megaman_dash_9
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -58,83 +60,103 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: jump_0
-      rect:
-        serializedVersion: 2
-        x: 1
-        y: 700
-        width: 256
-        height: 350
-      alignment: 7
-      pivot: {x: .5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: jump_1
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 700
-        width: 256
-        height: 350
-      alignment: 9
-      pivot: {x: .5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: jump_2
-      rect:
-        serializedVersion: 2
-        x: 512
-        y: 700
-        width: 256
-        height: 350
-      alignment: 9
-      pivot: {x: .5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: jump_3
+    - name: megaman_dash_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 350
-        width: 256
-        height: 350
+        y: 366
+        width: 269
+        height: 183
       alignment: 9
       pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: jump_4
+    - name: megaman_dash_1
       rect:
         serializedVersion: 2
-        x: 256
-        y: 350
-        width: 256
-        height: 350
+        x: 269
+        y: 366
+        width: 269
+        height: 183
       alignment: 9
       pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: jump_5
+    - name: megaman_dash_2
       rect:
         serializedVersion: 2
-        x: 512
-        y: 350
-        width: 256
-        height: 350
+        x: 538
+        y: 366
+        width: 269
+        height: 183
       alignment: 9
       pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: jump_6
+    - name: megaman_dash_3
+      rect:
+        serializedVersion: 2
+        x: 807
+        y: 366
+        width: 269
+        height: 183
+      alignment: 9
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: megaman_dash_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 183
+        width: 269
+        height: 183
+      alignment: 9
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: megaman_dash_5
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 183
+        width: 269
+        height: 183
+      alignment: 9
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: megaman_dash_6
+      rect:
+        serializedVersion: 2
+        x: 538
+        y: 183
+        width: 269
+        height: 183
+      alignment: 9
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: megaman_dash_7
+      rect:
+        serializedVersion: 2
+        x: 807
+        y: 183
+        width: 269
+        height: 183
+      alignment: 9
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: megaman_dash_8
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 256
-        height: 350
+        width: 269
+        height: 183
       alignment: 9
       pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: jump_7
+    - name: megaman_dash_9
       rect:
         serializedVersion: 2
-        x: 256
+        x: 269
         y: 0
-        width: 256
-        height: 350
+        width: 269
+        height: 183
       alignment: 9
       pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

@@ -13,9 +13,14 @@ public class Player : MonoBehaviour {
 
 	public float TouchDetectionRadius = 0.2f;
 
+    Animator _anim;
+    int runHash = Animator.StringToHash("run");
+    int jumpHash = Animator.StringToHash("jump");
+
 
 	// Use this for initialization
 	void Start () {
+        _anim = GetComponent<Animator>();
 		_rigidBody2D = GetComponent<Rigidbody2D> ();
 	}
 	
@@ -30,6 +35,7 @@ public class Player : MonoBehaviour {
 	void Update() {
 		if (Input.GetButtonDown ("Jump")) {
 			if (_bottomTouched) {
+                _anim.SetTrigger(jumpHash);
 				_bottomTouched = false;
 				_rigidBody2D.velocity = new Vector2 (_rigidBody2D.velocity.x, 0);
 				_rigidBody2D.AddForce (new Vector2 (0, JumpForce));
@@ -46,6 +52,11 @@ public class Player : MonoBehaviour {
 
 	void FixedUpdate () {
 		float move = Input.GetAxis ("Horizontal");
+        
+        if(move != 0)
+            _anim.SetBool(runHash, true);
+        else
+            _anim.SetBool(runHash, false);
 
 		_bottomTouched 	= Physics2D.OverlapArea (	
 			new Vector2 (BottomCorner1.transform.position.x, BottomCorner1.transform.position.y), 
@@ -60,9 +71,9 @@ public class Player : MonoBehaviour {
 			_secondJump = false;
 
 
-		if (move > 0 && !_facingRight)
+		if (move > 0 && _facingRight)
 			Flip ();				
-		else if (move < 0 && _facingRight)
+		else if (move < 0 && !_facingRight)
 			Flip ();
 
 		if( (move > 0 && !_leftTouched) || (move < 0 && !_leftTouched) )
