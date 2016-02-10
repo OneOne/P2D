@@ -33,20 +33,25 @@ public class Player : MonoBehaviour {
 	private Rigidbody2D _rigidBody2D;
 
 	void Update() {
-		if (Input.GetButtonDown ("Jump")) {
-			if (_bottomTouched) {
-                _anim.SetTrigger(jumpHash);
-				_bottomTouched = false;
-				_rigidBody2D.velocity = new Vector2 (_rigidBody2D.velocity.x, 0);
-				_rigidBody2D.AddForce (new Vector2 (0, JumpForce));
-			} else if (_firstJump && !_secondJump) {
-				_secondJump = true;
-				_rigidBody2D.velocity = new Vector2 (_rigidBody2D.velocity.x, 0);
-				_rigidBody2D.AddForce (new Vector2 (0, JumpForce));
-			}
+		if (Input.GetButtonDown ("Jump") && _cumulateJumpTime<MaxJumpTime) {
+			_cumulateJumpTime += Time.deltaTime;
+			_cumulateJumpForce += JumpForceDelta;
+			//_rigidBody2D.AddForce (new Vector2 (0, JumpForceDelta));
+			_rigidBody2D.AddForce (new Vector2 (0, _cumulateJumpForce));
+			//_rigidBody2D.velocity = new Vector2(_rigidBody2D.velocity.x, _rigidBody2D.velocity.y + JumpForceDelta*_cumulateJumpTime);
+
+//			if (_bottomTouched) {
+//				_bottomTouched = false;
+//				_rigidBody2D.velocity = new Vector2 (_rigidBody2D.velocity.x, 0);
+//				_rigidBody2D.AddForce (new Vector2 (0, JumpForce));
+//			} else if (_firstJump && !_secondJump) {
+//				_secondJump = true;
+//				_rigidBody2D.velocity = new Vector2 (_rigidBody2D.velocity.x, 0);
+//				_rigidBody2D.AddForce (new Vector2 (0, JumpForce));
+//			}
 		}
 		if (Input.GetButtonUp ("Jump")) {
-			_firstJump = true;
+			_cumulateJumpForce = 0;
 		}
 	}
 
@@ -71,9 +76,9 @@ public class Player : MonoBehaviour {
 			_secondJump = false;
 
 
-		if (move > 0 && _facingRight)
+		if (move > 0 && !_facingRight)
 			Flip ();				
-		else if (move < 0 && !_facingRight)
+		else if (move < 0 && _facingRight)
 			Flip ();
 
 		if( (move > 0 && !_leftTouched) || (move < 0 && !_leftTouched) )
