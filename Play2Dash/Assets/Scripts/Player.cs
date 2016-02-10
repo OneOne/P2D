@@ -4,7 +4,6 @@ using System.Collections;
 public class Player : MonoBehaviour {
 	public float MaxMoveSpeed = 10.0f;
 	public float JumpForce = 700.0f;
-	public Transform BottomSide;
 	public Transform FrontCorner1;
 	public Transform FrontCorner2;
 	public Transform BottomCorner1;
@@ -13,17 +12,17 @@ public class Player : MonoBehaviour {
 
 	public float TouchDetectionRadius = 0.2f;
 
-    Animator _anim;
-    int runHash = Animator.StringToHash("run");
-    int jumpHash = Animator.StringToHash("jump");
+	Animator _anim;
+	int runHash = Animator.StringToHash("run");
+	int jumpHash = Animator.StringToHash("jump");
 
 
 	// Use this for initialization
 	void Start () {
-        _anim = GetComponent<Animator>();
+		_anim = GetComponent<Animator>();
 		_rigidBody2D = GetComponent<Rigidbody2D> ();
 	}
-	
+
 	private bool _facingRight = false;
 	private bool _bottomTouched =  false;
 	private bool _leftTouched =  false;
@@ -33,35 +32,30 @@ public class Player : MonoBehaviour {
 	private Rigidbody2D _rigidBody2D;
 
 	void Update() {
-		if (Input.GetButtonDown ("Jump") && _cumulateJumpTime<MaxJumpTime) {
-			_cumulateJumpTime += Time.deltaTime;
-			_cumulateJumpForce += JumpForceDelta;
-			//_rigidBody2D.AddForce (new Vector2 (0, JumpForceDelta));
-			_rigidBody2D.AddForce (new Vector2 (0, _cumulateJumpForce));
-			//_rigidBody2D.velocity = new Vector2(_rigidBody2D.velocity.x, _rigidBody2D.velocity.y + JumpForceDelta*_cumulateJumpTime);
-
-//			if (_bottomTouched) {
-//				_bottomTouched = false;
-//				_rigidBody2D.velocity = new Vector2 (_rigidBody2D.velocity.x, 0);
-//				_rigidBody2D.AddForce (new Vector2 (0, JumpForce));
-//			} else if (_firstJump && !_secondJump) {
-//				_secondJump = true;
-//				_rigidBody2D.velocity = new Vector2 (_rigidBody2D.velocity.x, 0);
-//				_rigidBody2D.AddForce (new Vector2 (0, JumpForce));
-//			}
+		if (Input.GetButtonDown ("Jump")) {
+			if (_bottomTouched) {
+				_anim.SetTrigger(jumpHash);
+				_bottomTouched = false;
+				_rigidBody2D.velocity = new Vector2 (_rigidBody2D.velocity.x, 0);
+				_rigidBody2D.AddForce (new Vector2 (0, JumpForce));
+			} else if (_firstJump && !_secondJump) {
+				_secondJump = true;
+				_rigidBody2D.velocity = new Vector2 (_rigidBody2D.velocity.x, 0);
+				_rigidBody2D.AddForce (new Vector2 (0, JumpForce));
+			}
 		}
 		if (Input.GetButtonUp ("Jump")) {
-			_cumulateJumpForce = 0;
+			_firstJump = true;
 		}
 	}
 
 	void FixedUpdate () {
 		float move = Input.GetAxis ("Horizontal");
-        
-        if(move != 0)
-            _anim.SetBool(runHash, true);
-        else
-            _anim.SetBool(runHash, false);
+
+		if(move != 0)
+			_anim.SetBool(runHash, true);
+		else
+			_anim.SetBool(runHash, false);
 
 		_bottomTouched 	= Physics2D.OverlapArea (	
 			new Vector2 (BottomCorner1.transform.position.x, BottomCorner1.transform.position.y), 
@@ -76,14 +70,14 @@ public class Player : MonoBehaviour {
 			_secondJump = false;
 
 
-		if (move > 0 && !_facingRight)
+		if (move > 0 && _facingRight)
 			Flip ();				
-		else if (move < 0 && _facingRight)
+		else if (move < 0 && !_facingRight)
 			Flip ();
 
 		if( (move > 0 && !_leftTouched) || (move < 0 && !_leftTouched) )
 			_rigidBody2D.velocity = new Vector2 (move * MaxMoveSpeed, _rigidBody2D.velocity.y);
-	
+
 	}
 	void Flip() {
 		_facingRight = !_facingRight;

@@ -2,7 +2,7 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Player.cs">
     <Files>
-      <File FileName="Assets\Scripts\Player.cs" Line="59" Column="27" />
+      <File FileName="Assets\Scripts\Player.cs" Line="67" Column="15" />
       <File FileName="Assets\Scripts\TileManager.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\PolygonColliderGenerator.cs" Line="1" Column="1" />
     </Files>
@@ -10,9 +10,12 @@
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <FunctionBreakpoint enabled="false" line="70" column="1" function="move&gt;0" language="C#" />
+      <Breakpoint file="C:\Users\Michael\Desktop\P2D\Play2Dash\Assets\Scripts\Player.cs" line="69" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>
     <Watch file="Assets\Scripts\Player.cs" line="39" offsetX="674" offsetY="547" expression="_cumulateJumpTime" liveUpdate="False" />
+    <Watch file="Assets\Scripts\Player.cs" line="60" offsetX="850" offsetY="922" expression="_bottomTouched" liveUpdate="False" />
+    <Watch file="Assets\Scripts\Player.cs" line="64" offsetX="769" offsetY="1026" expression="_leftTouched" liveUpdate="False" />
   </MonoDevelop.Ide.DebuggingService.PinnedWatches>
 </Properties>
