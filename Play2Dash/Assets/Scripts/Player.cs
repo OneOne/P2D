@@ -2,8 +2,11 @@
 using System.Collections;
 
 public class Player : MonoBehaviour {
-	public float MaxMoveSpeed = 10.0f;
-	public float JumpForce = 700.0f;
+	public float MoveSpeed = 10.0f;
+	public float JumpSpeed = 20.0f;
+	public float LongJumpTime = 0.3f;
+	public float LongJumpSpeed = 16f;
+
 	public Transform FrontCorner1;
 	public Transform FrontCorner2;
 	public Transform BottomCorner1;
@@ -28,30 +31,47 @@ public class Player : MonoBehaviour {
 	private bool _leftTouched =  false;
 	private bool _firstJump =  false;
 	private bool _secondJump =  false;
+	private bool _longJump =  false;
+	private float _jumpTime = 0.0f;
 
 	private Rigidbody2D _rigidBody2D;
 
 	void Update() {
 		if (Input.GetButtonDown ("Jump")) {
+			_jumpTime += Time.deltaTime;
+
 			if (_bottomTouched) {
-				_anim.SetTrigger(jumpHash);
+				//_anim.SetTrigger (jumpHash);
 				_bottomTouched = false;
-				_rigidBody2D.velocity = new Vector2 (_rigidBody2D.velocity.x, 0);
-				_rigidBody2D.AddForce (new Vector2 (0, JumpForce));
+				_rigidBody2D.velocity = new Vector2 (_rigidBody2D.velocity.x, JumpSpeed);
+				//_rigidBody2D.AddForce (new Vector2 (0, JumpForce));
 			} else if (_firstJump && !_secondJump) {
+				//_anim.SetTrigger (jumpHash);
 				_secondJump = true;
-				_rigidBody2D.velocity = new Vector2 (_rigidBody2D.velocity.x, 0);
-				_rigidBody2D.AddForce (new Vector2 (0, JumpForce));
+				_longJump = false;
+				_rigidBody2D.velocity = new Vector2 (_rigidBody2D.velocity.x, JumpSpeed);
+				//_rigidBody2D.AddForce (new Vector2 (0, JumpForce));
+			}
+		} else if (Input.GetButton ("Jump")) {
+			_jumpTime += Time.deltaTime;
+
+			if (!_longJump && _jumpTime > LongJumpTime) {
+				_longJump = true;
+				_rigidBody2D.velocity = new Vector2 (_rigidBody2D.velocity.x, LongJumpSpeed);
 			}
 		}
 		if (Input.GetButtonUp ("Jump")) {
 			_firstJump = true;
-		}
+			_longJump = false;
+			_jumpTime = 0.0f;
+		}	
 	}
 
 	void FixedUpdate () {
 		float move = Input.GetAxis ("Horizontal");
 
+		//Animation part	
+		_anim.SetFloat("velocityY", _rigidBody2D.velocity.y);		
 		if(move != 0)
 			_anim.SetBool(runHash, true);
 		else
@@ -76,7 +96,7 @@ public class Player : MonoBehaviour {
 			Flip ();
 
 		if( (move > 0 && !_leftTouched) || (move < 0 && !_leftTouched) )
-			_rigidBody2D.velocity = new Vector2 (move * MaxMoveSpeed, _rigidBody2D.velocity.y);
+			_rigidBody2D.velocity = new Vector2 (move * MoveSpeed, _rigidBody2D.velocity.y);
 
 	}
 	void Flip() {
