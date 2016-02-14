@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Play2Dash.unity
+- path: Assets/megamanAnimTest.unity
   isLoaded: 1
   isActive: 1
