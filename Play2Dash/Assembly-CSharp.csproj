@@ -50,6 +50,7 @@
      <Compile Include="Assets\Scripts\PolygonColliderGenerator.cs" />
      <Compile Include="Assets\Scripts\Shot.cs" />
      <Compile Include="Assets\Scripts\TileManager.cs" />
+     <Compile Include="Assets\Scripts\shotAnim.cs" />
      <Compile Include="Assets\Sprites\levelTest\TEST.cs" />
      <None Include="Assets\Textures\ExportTest.ai.xml" />
  <Reference Include="UnityEngine.UI">
