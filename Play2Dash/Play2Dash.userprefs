@@ -1,10 +1,8 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Player.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\wfTools\PolygonColliderGenerator.cs">
     <Files>
-      <File FileName="Assets\Scripts\Player.cs" Line="44" Column="33" />
-      <File FileName="Assets\Scripts\TileManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\PolygonColliderGenerator.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\wfTools\PolygonColliderGenerator.cs" Line="62" Column="9" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
