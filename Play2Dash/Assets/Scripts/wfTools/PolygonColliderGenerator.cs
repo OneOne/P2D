@@ -7,14 +7,16 @@ using System.IO;
 
 [ExecuteInEditMode]
 public class PolygonColliderGenerator : MonoBehaviour {
-	
-	public GameObject Level; 
+
+
+	GameObject Level;
+	public TextAsset textXML;
 	public bool	Execute = false;
-	public float Multiplier = 100	;
+	public float Multiplier = 100;
 
 	// Use this for initialization
 	void Start () {
-		Level = this.GetComponentInParent<GameObject>();
+		Level = gameObject;
 	}
 	
 	// Update is called once per frame
@@ -37,11 +39,10 @@ public class PolygonColliderGenerator : MonoBehaviour {
 		string spriteName = iLevel.GetComponent<SpriteRenderer> ().sprite.name;
 
 		//Load Xml
-		string filepath = Application.dataPath + @"\Textures\" + spriteName + ".ai.xml";
-		if(File.Exists (filepath))
+		if(textXML != null)
 		{
 			XmlDocument xmlDoc = new XmlDocument(); 
-			xmlDoc.Load(filepath); 
+			xmlDoc.LoadXml(textXML.text); 
 
 			//Start parsing
 			XmlNodeList pathList = xmlDoc.GetElementsByTagName("PathItem");

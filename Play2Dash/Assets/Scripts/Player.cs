@@ -22,7 +22,7 @@ public class Player : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		_anim = GetComponent<Animator>();
+		_anim = GetComponentInChildren<Animator>();
 		_rigidBody2D = GetComponent<Rigidbody2D> ();
 	}
 

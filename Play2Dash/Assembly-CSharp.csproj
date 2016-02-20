@@ -47,12 +47,11 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\CameraScript.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
-     <Compile Include="Assets\Scripts\PolygonColliderGenerator.cs" />
      <Compile Include="Assets\Scripts\Shot.cs" />
      <Compile Include="Assets\Scripts\TileManager.cs" />
      <Compile Include="Assets\Scripts\shotAnim.cs" />
-     <Compile Include="Assets\Sprites\levelTest\TEST.cs" />
-     <None Include="Assets\Textures\ExportTest.ai.xml" />
+     <Compile Include="Assets\Scripts\wfTools\PolygonColliderGenerator.cs" />
+     <None Include="Assets\Sprites\levelTest\levelTest_V01.ai.xml" />
  <Reference Include="UnityEngine.UI">
  <HintPath>E:/P87/Perso/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
