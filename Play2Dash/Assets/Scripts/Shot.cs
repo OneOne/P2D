@@ -4,10 +4,14 @@ using System.Collections;
 public class Shot : MonoBehaviour {
 
 	public Vector3 moveVector;
+	public int hitDamage;
+
+	Animator anim;
+	int collideHash = Animator.StringToHash("collide");
 
 	// Use this for initialization
 	void Start () {
-
+		anim = gameObject.GetComponentInChildren<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -16,6 +20,11 @@ public class Shot : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
-		Debug.Log("test");
+		anim.SetTrigger(collideHash);
+		GameObject collider = other.transform.parent.gameObject;
+		if(collider.GetComponent<Player>() != null){
+			collider.GetComponent<Player>().hit(hitDamage);
+		};
 	}
+
 }

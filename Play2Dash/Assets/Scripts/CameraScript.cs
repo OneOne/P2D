@@ -4,6 +4,7 @@ using System.Collections;
 public class CameraScript : MonoBehaviour {
 
 	public GameObject ObjectToFollow;
+	public float yOffset = 0;
 	// Use this for initialization
 	void Start () {
 	
@@ -13,7 +14,7 @@ public class CameraScript : MonoBehaviour {
 	void Update () {
 		Vector3 pos = this.transform.position;
 		pos.x = ObjectToFollow.transform.position.x;
-		pos.y = ObjectToFollow.transform.position.y;
+		pos.y = ObjectToFollow.transform.position.y + yOffset;
 		this.transform.position = pos;
 	}
 }
