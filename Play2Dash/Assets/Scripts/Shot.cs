@@ -4,6 +4,7 @@ using System.Collections;
 public class Shot : MonoBehaviour {
 
 	public Vector3 moveVector;
+	public int hitDamage;
 
 	Animator anim;
 	int collideHash = Animator.StringToHash("collide");
@@ -20,6 +21,10 @@ public class Shot : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other) {
 		anim.SetTrigger(collideHash);
+		GameObject collider = other.transform.parent.gameObject;
+		if(collider.GetComponent<Player>() != null){
+			collider.GetComponent<Player>().hit(hitDamage);
+		};
 	}
 
 }

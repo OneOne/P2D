@@ -27,6 +27,8 @@ GameObject:
   - 4: {fileID: 403126}
   - 212: {fileID: 21249192}
   - 60: {fileID: 6060228}
+  - 95: {fileID: 9589372}
+  - 114: {fileID: 11443864}
   m_Layer: 0
   m_Name: shot_sprite
   m_TagString: Untagged
@@ -53,7 +55,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 174666}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 507.64, y: 246, z: 0}
+  m_LocalPosition: {x: 507.64, y: 149, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 403126}
@@ -100,6 +102,34 @@ PolygonCollider2D:
       - {x: 36.5, y: -8.5}
       - {x: 36.5, y: 7.5}
       - {x: 25.5, y: 19.5}
+--- !u!95 &9589372
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 183542}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dd39f921a9782ad4d82bcd9a6de4e0b0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11443864
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 183542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ca0770949f37ce4983fe315c2d2a4fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11457582
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -111,7 +141,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85213e7ece02f5748ba9e4225a39a5e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveVector: {x: -95.46, y: 0, z: 0}
+  moveVector: {x: -100, y: 0, z: 0}
+  hitDamage: 20
 --- !u!212 &21249192
 SpriteRenderer:
   m_ObjectHideFlags: 1

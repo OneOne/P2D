@@ -1,6 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public class playerHit : GameEvent
+{
+	public int health;
+	public playerHit(int thisHealth){
+		health = thisHealth;
+	}
+}
+
 public class Player : MonoBehaviour {
 	public float MoveSpeed = 10.0f;
 	public float JumpSpeed = 20.0f;
@@ -18,7 +26,8 @@ public class Player : MonoBehaviour {
 	Animator _anim;
 	int runHash = Animator.StringToHash("run");
 	int jumpHash = Animator.StringToHash("jump");
-
+	int hitHash = Animator.StringToHash("hit");
+	int health = 100;
 
 	// Use this for initialization
 	void Start () {
@@ -99,11 +108,22 @@ public class Player : MonoBehaviour {
 			_rigidBody2D.velocity = new Vector2 (move * MoveSpeed, _rigidBody2D.velocity.y);
 
 	}
+
 	void Flip() {
 		_facingRight = !_facingRight;
 		Vector3 lScale = transform.localScale;
 		lScale.x *= -1;
 		transform.localScale = lScale;
 		//transform.localScale.x *= -1;
+	}
+
+	public void hit(int hitValue){
+		health -= hitValue;
+		playerHit _playerHitEvent = new playerHit(health);
+		_anim.SetTrigger(hitHash);
+		Events.instance.Raise(_playerHitEvent);
+		if(health <= 0){
+			GameObject.Destroy(gameObject);
+		}
 	}
 }
