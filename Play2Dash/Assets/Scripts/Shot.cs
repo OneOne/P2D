@@ -21,9 +21,9 @@ public class Shot : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other) {
 		anim.SetTrigger(collideHash);
-		GameObject collider = other.transform.parent.gameObject;
-		if(collider.GetComponent<Player>() != null){
-			collider.GetComponent<Player>().hit(hitDamage);
+		GameObject collider = other.gameObject;
+		if(collider.GetComponentInParent<Player>() != null && other is BoxCollider2D == true){
+			collider.GetComponentInParent<Player>().hit(hitDamage);
 		};
 	}
 
