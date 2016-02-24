@@ -1,0 +1,117 @@
+fileFormatVersion: 2
+guid: 1f729cf6e7da89840a181013497da813
+timeCreated: 1456354307
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: megamanGrindShot_0
+    21300002: megamanGrindShot_1
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 1
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: megamanGrindShot_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 256
+        height: 350
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 128, y: 309}
+        - {x: 128, y: 335}
+        - {x: 101, y: 346}
+        - {x: 48, y: 346}
+        - {x: -27, y: 299}
+        - {x: -56, y: 259}
+        - {x: -126, y: 213}
+        - {x: -126, y: 165}
+        - {x: -99, y: 145}
+        - {x: -56, y: 149}
+        - {x: -4, y: 156}
+        - {x: 10, y: 58}
+        - {x: 50, y: 0}
+        - {x: 100, y: 0}
+        - {x: 103, y: 1}
+        - {x: 128, y: 38}
+        - {x: 128, y: 153}
+        - {x: 118, y: 230}
+    - name: megamanGrindShot_1
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 256
+        height: 350
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 128, y: 285}
+        - {x: 128, y: 301}
+        - {x: 116, y: 345}
+        - {x: 112, y: 350}
+        - {x: 67, y: 350}
+        - {x: 63, y: 349}
+        - {x: 54, y: 337}
+        - {x: -40, y: 305}
+        - {x: -127, y: 203}
+        - {x: -127, y: 164}
+        - {x: -102, y: 138}
+        - {x: -15, y: 148}
+        - {x: -10, y: 105}
+        - {x: 56, y: 24}
+        - {x: 89, y: 10}
+        - {x: 128, y: 10}
+        - {x: 128, y: 133}
+        - {x: 111, y: 195}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

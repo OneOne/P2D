@@ -20,6 +20,7 @@ public class Player : MonoBehaviour {
 	public Transform BottomCorner1;
 	public Transform BottomCorner2;
 	public LayerMask GroundLayer;
+	LayerMask wallsMask;
 
 	public float TouchDetectionRadius = 0.2f;
 
@@ -34,6 +35,7 @@ public class Player : MonoBehaviour {
 	void Start () {
 		_anim = GetComponentInChildren<Animator>();
 		_rigidBody2D = GetComponent<Rigidbody2D> ();
+		wallsMask = LayerMask.GetMask("Walls");
 	}
 
 	private bool _facingRight = false;
@@ -80,6 +82,7 @@ public class Player : MonoBehaviour {
 	void FixedUpdate () {
 		float move = Input.GetAxis ("Horizontal");
 
+		detectWalls();
 		//Animation part	
 		_anim.SetFloat("velocityY", _rigidBody2D.velocity.y);		
 		if(move != 0)
@@ -126,6 +129,29 @@ public class Player : MonoBehaviour {
 		if(health <= 0){
 			_anim.SetTrigger(deathHash);
 			this.enabled = false;
+		}
+	}
+
+
+	public bool frontHitOn = false;
+
+	void detectWalls(){
+		Vector2 grindRayDir;
+		if(_facingRight == false){
+			grindRayDir = Vector2.right;
+		}
+		else{
+			grindRayDir = -Vector2.right;
+		}
+
+		RaycastHit2D frontHit = Physics2D.Raycast(transform.position, grindRayDir, 100,wallsMask);
+		Debug.DrawRay(transform.position, grindRayDir * 100, Color.green, 0, false);
+
+		if (frontHit.collider != null) {
+			frontHitOn = true;
+		}
+		else{
+			frontHitOn = false;
 		}
 	}
 		
