@@ -27,6 +27,7 @@ public class Player : MonoBehaviour {
 	int runHash = Animator.StringToHash("run");
 	int jumpHash = Animator.StringToHash("jump");
 	int hitHash = Animator.StringToHash("hit");
+	int deathHash = Animator.StringToHash("death");
 	int health = 100;
 
 	// Use this for initialization
@@ -123,7 +124,9 @@ public class Player : MonoBehaviour {
 		_anim.SetTrigger(hitHash);
 		Events.instance.Raise(_playerHitEvent);
 		if(health <= 0){
-			GameObject.Destroy(gameObject);
+			_anim.SetTrigger(deathHash);
+			this.enabled = false;
 		}
 	}
+		
 }

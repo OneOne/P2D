@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85213e7ece02f5748ba9e4225a39a5e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveVector: {x: -100, y: 0, z: 0}
+  moveVector: {x: -250, y: 0, z: 0}
   hitDamage: 20
 --- !u!212 &21249192
 SpriteRenderer:
@@ -179,7 +179,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: moveVector.x
+      value: -250
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 174666}
