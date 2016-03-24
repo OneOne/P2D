@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class playerHit : GameEvent
-{
+public class playerHit : GameEvent{
 	public int health;
 	public playerHit(int thisHealth){
 		health = thisHealth;
@@ -10,8 +9,9 @@ public class playerHit : GameEvent
 }
 
 public class Player : MonoBehaviour {
+	
 	public float MoveSpeed = 10.0f;
-	public float JumpSpeed = 20.0f;
+	public float JumpSpeed = 60.0f;
 	public float LongJumpTime = 0.3f;
 	public float LongJumpSpeed = 16f;
 
@@ -29,6 +29,8 @@ public class Player : MonoBehaviour {
 	int jumpHash = Animator.StringToHash("jump");
 	int hitHash = Animator.StringToHash("hit");
 	int deathHash = Animator.StringToHash("death");
+	int grindHash = Animator.StringToHash("grind");
+	int groundedHash = Animator.StringToHash("grounded");
 	int health = 100;
 
 	// Use this for initialization
@@ -39,30 +41,28 @@ public class Player : MonoBehaviour {
 	}
 
 	private bool _facingRight = false;
-	private bool _bottomTouched =  false;
+	public bool _bottomTouched =  false;
 	private bool _leftTouched =  false;
 	private bool _firstJump =  false;
 	private bool _secondJump =  false;
 	private bool _longJump =  false;
 	private float _jumpTime = 0.0f;
+	private bool _grinded = false;
 
 	private Rigidbody2D _rigidBody2D;
 
 	void Update() {
+
 		if (Input.GetButtonDown ("Jump")) {
 			_jumpTime += Time.deltaTime;
 
-			if (_bottomTouched) {
-				//_anim.SetTrigger (jumpHash);
+			if (_bottomTouched || _grinded == true) {
 				_bottomTouched = false;
 				_rigidBody2D.velocity = new Vector2 (_rigidBody2D.velocity.x, JumpSpeed);
-				//_rigidBody2D.AddForce (new Vector2 (0, JumpForce));
 			} else if (_firstJump && !_secondJump) {
-				//_anim.SetTrigger (jumpHash);
 				_secondJump = true;
 				_longJump = false;
 				_rigidBody2D.velocity = new Vector2 (_rigidBody2D.velocity.x, JumpSpeed);
-				//_rigidBody2D.AddForce (new Vector2 (0, JumpForce));
 			}
 		} else if (Input.GetButton ("Jump")) {
 			_jumpTime += Time.deltaTime;
@@ -72,17 +72,31 @@ public class Player : MonoBehaviour {
 				_rigidBody2D.velocity = new Vector2 (_rigidBody2D.velocity.x, LongJumpSpeed);
 			}
 		}
+
 		if (Input.GetButtonUp ("Jump")) {
 			_firstJump = true;
 			_longJump = false;
 			_jumpTime = 0.0f;
-		}	
+			_anim.SetBool("grounded",false);
+		}
+
 	}
 
 	void FixedUpdate () {
 		float move = Input.GetAxis ("Horizontal");
 
 		detectWalls();
+		moveDeb = Mathf.Abs(move);
+
+		if(Mathf.Abs(move) > 0f && frontHitOn == true && _bottomTouched == false){
+			_grinded = true;
+			_anim.SetBool("grind",true);
+			_firstJump = false;
+			_longJump = false;
+			_secondJump = false;
+			_rigidBody2D.velocity = new Vector2 (_rigidBody2D.velocity.x, _rigidBody2D.velocity.y / 1.1f);
+		}
+
 		//Animation part	
 		_anim.SetFloat("velocityY", _rigidBody2D.velocity.y);		
 		if(move != 0)
@@ -99,8 +113,16 @@ public class Player : MonoBehaviour {
 			new Vector2 (FrontCorner2.transform.position.x, FrontCorner2.transform.position.y),
 			GroundLayer);
 
-		if (_bottomTouched)
+		if (_bottomTouched){
 			_secondJump = false;
+			_anim.SetBool("grounded",true);
+			_anim.SetBool("grind", false);
+		}
+
+		if(frontHitOn == false){
+			_grinded = false;
+			_anim.SetBool("grind", false);	
+		}
 
 
 		if (move > 0 && _facingRight)
@@ -108,8 +130,9 @@ public class Player : MonoBehaviour {
 		else if (move < 0 && !_facingRight)
 			Flip ();
 
-		if( (move > 0 && !_leftTouched) || (move < 0 && !_leftTouched) )
+		if( ((move > 0 && frontHitOn == false) || (move < 0 && frontHitOn == false)) ){
 			_rigidBody2D.velocity = new Vector2 (move * MoveSpeed, _rigidBody2D.velocity.y);
+		}
 
 	}
 
@@ -134,6 +157,7 @@ public class Player : MonoBehaviour {
 
 
 	public bool frontHitOn = false;
+	public float moveDeb;
 
 	void detectWalls(){
 		Vector2 grindRayDir;
