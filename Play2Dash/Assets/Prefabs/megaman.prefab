@@ -24,7 +24,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 477502}
   - 50: {fileID: 5002454}
-  - 114: {fileID: 11460130}
+  - 114: {fileID: 11447584}
   m_Layer: 8
   m_Name: megaman
   m_TagString: Untagged
@@ -57,7 +57,6 @@ GameObject:
   - 4: {fileID: 478790}
   - 212: {fileID: 21282460}
   - 95: {fileID: 9556970}
-  - 60: {fileID: 6086820}
   - 61: {fileID: 6117402}
   - 58: {fileID: 5837180}
   - 114: {fileID: 11430716}
@@ -90,7 +89,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 190944}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 112, y: 34, z: 0}
+  m_LocalPosition: {x: 33.15, y: 34, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 478790}
@@ -102,7 +101,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 144802}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -99.9, y: -14, z: 0}
+  m_LocalPosition: {x: -30, y: -5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 478790}
@@ -114,7 +113,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 138300}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 337, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 478790}
@@ -178,70 +177,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 69.7}
   serializedVersion: 2
   m_Radius: 72.134346
---- !u!60 &6086820
-PolygonCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 167218}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  m_Points:
-    m_Paths:
-    - - {x: 8, y: 58}
-      - {x: 11, y: 48}
-      - {x: 2, y: 33}
-      - {x: 4, y: 0}
-      - {x: 84, y: 0}
-      - {x: 84, y: 5}
-      - {x: 59, y: 33}
-      - {x: 64, y: 49}
-      - {x: 64, y: 72}
-      - {x: 59, y: 82}
-      - {x: 81, y: 81}
-      - {x: 98, y: 99}
-      - {x: 98, y: 114}
-      - {x: 81, y: 134}
-      - {x: 67, y: 133}
-      - {x: 52, y: 120}
-      - {x: 48, y: 148}
-      - {x: 56, y: 157}
-      - {x: 64, y: 167}
-      - {x: 65, y: 186}
-      - {x: 58, y: 203}
-      - {x: 41, y: 222}
-      - {x: 28, y: 228}
-      - {x: 15, y: 228}
-      - {x: -3, y: 218}
-      - {x: -16, y: 201}
-      - {x: -22, y: 187}
-      - {x: -39, y: 163}
-      - {x: -52, y: 156}
-      - {x: -68, y: 147}
-      - {x: -76, y: 135}
-      - {x: -76, y: 124}
-      - {x: -62, y: 93}
-      - {x: -42, y: 69}
-      - {x: -46, y: 66}
-      - {x: -69, y: 42}
-      - {x: -84, y: 26}
-      - {x: -102, y: 4}
-      - {x: -102, y: 0}
-      - {x: -28, y: 0}
-      - {x: -7, y: 42}
-      - {x: -6, y: 66}
-    - - {x: 17, y: 103}
-      - {x: 23, y: 104}
-      - {x: 24, y: 97}
-      - {x: 20, y: 96}
-    - - {x: -29, y: 122}
-      - {x: -27, y: 125}
-      - {x: -23, y: 125}
-      - {x: -29, y: 118}
 --- !u!61 &6117402
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -284,7 +219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9ed5ce13dc7bcd4fa8648ed4a41814a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11460130
+--- !u!114 &11447584
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -292,13 +227,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 138300}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26baf003f9da7df458759c7910c191f1, type: 3}
+  m_Script: {fileID: 11500000, guid: 64e5fe7e61b53a04fa90944bf432a321, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   MoveSpeed: 800
   JumpSpeed: 800
-  LongJumpTime: 0.35
-  LongJumpSpeed: 1200
+  LongJumpTime: 0.3
+  LongJumpSpeed: 16
   FrontCorner1: {fileID: 485044}
   FrontCorner2: {fileID: 421576}
   BottomCorner1: {fileID: 446876}
@@ -307,6 +242,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967039
   TouchDetectionRadius: 0.2
+  _bottomTouched: 0
+  frontHitOn: 0
+  moveDeb: 0
+  moveVel: {x: 0, y: 0}
 --- !u!212 &21282460
 SpriteRenderer:
   m_ObjectHideFlags: 1
