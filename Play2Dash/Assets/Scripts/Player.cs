@@ -10,16 +10,17 @@ public class playerHit : GameEvent{
 
 public class Player : MonoBehaviour {
 	
-	public float MoveSpeed = 10.0f;
-	public float JumpSpeed = 60.0f;
-	public float LongJumpTime = 0.3f;
-	public float LongJumpSpeed = 16f;
+	public float MoveSpeed = 800.0f;
+	public float JumpSpeed = 1000.0f;
+	public float MinJumpSpeed = 200.0f;
+	/*public float LongJumpTime = 0.3f;
+	public float LongJumpSpeed = 16f;*/
 
-	public Transform FrontCorner1;
+	/*public Transform FrontCorner1;
 	public Transform FrontCorner2;
 	public Transform BottomCorner1;
-	public Transform BottomCorner2;
-	public LayerMask GroundLayer;
+	public Transform BottomCorner2;*/
+	//public LayerMask GroundLayer;
 	LayerMask wallsMask;
 
 	public float TouchDetectionRadius = 0.2f;
@@ -33,53 +34,75 @@ public class Player : MonoBehaviour {
 	int groundedHash = Animator.StringToHash("grounded");
 	int health = 100;
 
+
+
+	public bool _facingRight = false;
+	public bool _bottomTouched =  false;
+	public bool _frontTouched =  false;
+
+	public bool _firstJump =  false;
+	public bool _firstJumpEnd =  false;
+	public bool _secondJump =  false;
+	/*private bool _longJump =  false;
+	private float _jumpTime = 0.0f;*/
+	private bool _grinding = false;
+
+	private Rigidbody2D _rigidBody2D;
+
+
+
+	private BoxCollider2D _bottom_box;
+	private CircleCollider2D _bottom_left;
+	private CircleCollider2D _bottom_right;
+	private BoxCollider2D _left_box;
+	private BoxCollider2D _right_box;
+
 	// Use this for initialization
 	void Start () {
 		_anim = GetComponentInChildren<Animator>();
 		_rigidBody2D = GetComponent<Rigidbody2D> ();
 		wallsMask = LayerMask.GetMask("Walls");
+
+		_bottom_box = GetComponents<BoxCollider2D> () [1];
+		_bottom_left = GetComponents<CircleCollider2D> () [0];
+		_bottom_right = GetComponents<CircleCollider2D> () [1];
+		_left_box = GetComponents<BoxCollider2D> () [2];
+		_right_box = GetComponents<BoxCollider2D> () [3];
 	}
 
-	private bool _facingRight = false;
-	public bool _bottomTouched =  false;
-	private bool _leftTouched =  false;
-	private bool _firstJump =  false;
-	private bool _secondJump =  false;
-	private bool _longJump =  false;
-	private float _jumpTime = 0.0f;
-	private bool _grinded = false;
-
-	private Rigidbody2D _rigidBody2D;
 
 	void Update() {
 
 		if (Input.GetButtonDown ("Jump")) {
-			_jumpTime += Time.deltaTime;
+			if (!_firstJump && (_bottomTouched || _grinding)) {
+				_firstJump = true;
+				_firstJumpEnd = false;
 
-			if (_bottomTouched || _grinded == true) {
-				_bottomTouched = false;
-				_rigidBody2D.velocity = new Vector2 (_rigidBody2D.velocity.x, JumpSpeed);
-			} else if (_firstJump && !_secondJump) {
+				// jump whil grinding
+				if (_grinding) {
+					if(_facingRight)
+						_rigidBody2D.velocity = new Vector2 (MoveSpeed, JumpSpeed);
+					else
+						_rigidBody2D.velocity = new Vector2 (-MoveSpeed, JumpSpeed);
+				}
+				// classic jump
+				else
+					_rigidBody2D.velocity = new Vector2 (_rigidBody2D.velocity.x, JumpSpeed);
+			}
+			else if(_firstJumpEnd && !_secondJump) {
 				_secondJump = true;
-				_longJump = false;
+				// second jump
 				_rigidBody2D.velocity = new Vector2 (_rigidBody2D.velocity.x, JumpSpeed);
 			}
-		} else if (Input.GetButton ("Jump")) {
-			_jumpTime += Time.deltaTime;
 
-			if (!_longJump && _jumpTime > LongJumpTime) {
-				_longJump = true;
-				_rigidBody2D.velocity = new Vector2 (_rigidBody2D.velocity.x, LongJumpSpeed);
-			}
 		}
+		else if(Input.GetButtonUp("Jump")) {
+			_firstJump = false;
+			_firstJumpEnd = true;
 
-		if (Input.GetButtonUp ("Jump")) {
-			_firstJump = true;
-			_longJump = false;
-			_jumpTime = 0.0f;
-			_anim.SetBool("grounded",false);
+			if(_rigidBody2D.velocity.y > MinJumpSpeed)
+				_rigidBody2D.velocity = new Vector2 (_rigidBody2D.velocity.x, MinJumpSpeed);
 		}
-
 	}
 
 	void FixedUpdate () {
@@ -88,52 +111,52 @@ public class Player : MonoBehaviour {
 		detectWalls();
 		moveDeb = Mathf.Abs(move);
 
-		if(Mathf.Abs(move) > 0f && frontHitOn == true && _bottomTouched == false){
-			_grinded = true;
-			_anim.SetBool("grind",true);
+		// Evalute states
+		_bottomTouched = _bottom_box.IsTouchingLayers (wallsMask) || _bottom_left.IsTouchingLayers (wallsMask) || _bottom_right.IsTouchingLayers (wallsMask);
+		_frontTouched = /*_left_box.IsTouchingLayers (wallsMask) ||*/ _right_box.IsTouchingLayers (wallsMask) || _bottom_right.IsTouchingLayers (wallsMask);
+		_grinding = /*Mathf.Abs(move) > 0f &&*/ _frontTouched && !_bottomTouched;
+
+		if(_bottomTouched) {
 			_firstJump = false;
-			_longJump = false;
 			_secondJump = false;
-			_rigidBody2D.velocity = new Vector2 (_rigidBody2D.velocity.x, _rigidBody2D.velocity.y / 1.1f);
 		}
 
-		//Animation part	
+		//Animation part
 		_anim.SetFloat("velocityY", _rigidBody2D.velocity.y);		
 		if(move != 0)
 			_anim.SetBool(runHash, true);
 		else
 			_anim.SetBool(runHash, false);
 
-		_bottomTouched 	= Physics2D.OverlapArea (	
-			new Vector2 (BottomCorner1.transform.position.x, BottomCorner1.transform.position.y), 
-			new Vector2 (BottomCorner2.transform.position.x, BottomCorner2.transform.position.y),
-			GroundLayer);
-		_leftTouched 	= Physics2D.OverlapArea (	
-			new Vector2 (FrontCorner1.transform.position.x, FrontCorner1.transform.position.y), 
-			new Vector2 (FrontCorner2.transform.position.x, FrontCorner2.transform.position.y),
-			GroundLayer);
-
 		if (_bottomTouched){
-			_secondJump = false;
 			_anim.SetBool("grounded",true);
 			_anim.SetBool("grind", false);
 		}
 
-		if(frontHitOn == false){
-			_grinded = false;
-			_anim.SetBool("grind", false);	
-		}
+		_anim.SetBool("grind",_grinding);
 
 
-		if (move > 0 && _facingRight)
-			Flip ();				
-		else if (move < 0 && !_facingRight)
-			Flip ();
 
-		if( ((move > 0 && frontHitOn == false) || (move < 0 && frontHitOn == false)) ){
+
+		// classic move
+		if(Mathf.Abs(move) > 0 && !_grinding)
 			_rigidBody2D.velocity = new Vector2 (move * MoveSpeed, _rigidBody2D.velocity.y);
+		
+		// grind
+		if (_grinding) {
+			// move while grinding
+			if( (move>0 && _facingRight) || (move<0 && !_facingRight) ) {
+				_rigidBody2D.velocity = new Vector2 (move * MoveSpeed, _rigidBody2D.velocity.y);
+			}
+			// fall
+			_rigidBody2D.velocity = new Vector2 (_rigidBody2D.velocity.x, _rigidBody2D.velocity.y / 1.1f);
 		}
 
+
+		if(_rigidBody2D.velocity.x > 0  && _facingRight)
+			Flip ();				
+		else if (_rigidBody2D.velocity.x  < 0 && !_facingRight)
+			Flip ();
 	}
 
 	void Flip() {
@@ -141,7 +164,6 @@ public class Player : MonoBehaviour {
 		Vector3 lScale = transform.localScale;
 		lScale.x *= -1;
 		transform.localScale = lScale;
-		//transform.localScale.x *= -1;
 	}
 
 	public void hit(int hitValue){

@@ -2,8 +2,9 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Player.cs">
     <Files>
-      <File FileName="Assets\Scripts\Player.cs" Line="124" Column="35" />
-      <File FileName="Assets\Scripts\lifeBar.cs" Line="26" Column="1" />
+      <File FileName="Assets\Scripts\Player.cs" Line="77" Column="19" />
+      <File FileName="Assets\PlayerColliderGenerator.cs" Line="25" Column="35" />
+      <File FileName="Assets\Scripts\lifeBar.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Shot.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
@@ -16,5 +17,8 @@
     <Watch file="Assets\Scripts\Player.cs" line="39" offsetX="674" offsetY="547" expression="_cumulateJumpTime" liveUpdate="False" />
     <Watch file="Assets\Scripts\Player.cs" line="60" offsetX="850" offsetY="922" expression="_bottomTouched" liveUpdate="False" />
     <Watch file="Assets\Scripts\Player.cs" line="64" offsetX="769" offsetY="1026" expression="_leftTouched" liveUpdate="False" />
+    <Watch file="Assets\Scripts\Player.cs" line="90" offsetX="748" offsetY="1380" expression="_firstJump" liveUpdate="False" />
+    <Watch file="Assets\Scripts\Player.cs" line="90" offsetX="748" offsetY="1409" expression="_firstJumpEnd" liveUpdate="False" />
+    <Watch file="Assets\Scripts\Player.cs" line="90" offsetX="748" offsetY="1439" expression="_secondJump" liveUpdate="False" />
   </MonoDevelop.Ide.DebuggingService.PinnedWatches>
 </Properties>
