@@ -35,14 +35,13 @@ public class Player : MonoBehaviour {
 	int health = 100;
 
 
+	private bool _facingRight = false;
+	private bool _bottomTouched =  false;
+	private bool _frontTouched =  false;
 
-	public bool _facingRight = false;
-	public bool _bottomTouched =  false;
-	public bool _frontTouched =  false;
-
-	public bool _firstJump =  false;
-	public bool _firstJumpEnd =  false;
-	public bool _secondJump =  false;
+	private bool _firstJump =  false;
+	private bool _firstJumpEnd =  false;
+	private bool _secondJump =  false;
 	/*private bool _longJump =  false;
 	private float _jumpTime = 0.0f;*/
 	private bool _grinding = false;
@@ -71,9 +70,29 @@ public class Player : MonoBehaviour {
 	}
 
 
-	void Update() {
 
-		if (Input.GetButtonDown ("Jump")) {
+	private bool _wasJumpDown = false;
+
+	void Update() {
+		bool isJumpDown = false;
+		bool isJumpUp = false;
+
+		if (Input.touchCount > 0) {
+			Touch t = Input.touches [0];
+			if (t.position.x > Screen.width / 3 && t.position.x < 2*Screen.width / 3 && t.position.y < Screen.height / 3) {
+				isJumpDown = true;
+				_wasJumpDown = true;
+			}
+		} else if (_wasJumpDown) {
+			_wasJumpDown = false;
+			isJumpUp = true;
+		} else {
+			isJumpDown = Input.GetButtonDown ("Jump");
+			isJumpUp = Input.GetButtonUp ("Jump");
+		}
+			
+
+		if (isJumpDown) {
 			if (!_firstJump && (_bottomTouched || _grinding)) {
 				_firstJump = true;
 				_firstJumpEnd = false;
@@ -96,7 +115,7 @@ public class Player : MonoBehaviour {
 			}
 
 		}
-		else if(Input.GetButtonUp("Jump")) {
+		else if(isJumpUp) {
 			_firstJump = false;
 			_firstJumpEnd = true;
 
@@ -106,7 +125,19 @@ public class Player : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
-		float move = Input.GetAxis ("Horizontal");
+		float move = 0.0f;
+
+		if(Input.touchCount > 0) {
+			Touch t = Input.touches [0];
+			if (t.position.x >= 0 && t.position.x < Screen.width / 3 && t.position.y < Screen.height / 3) {
+				move = -1.0f;
+			} else if (t.position.x > 2*Screen.width / 3 && t.position.y < Screen.height / 3) {
+				move = 1.0f;
+			}
+		}
+		else {
+			Input.GetAxis ("Horizontal");
+		}
 
 		detectWalls();
 		moveDeb = Mathf.Abs(move);
