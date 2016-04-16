@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class playerHit : GameEvent{
 	public int health;
@@ -56,6 +57,14 @@ public class Player : MonoBehaviour {
 	private BoxCollider2D _left_box;
 	private BoxCollider2D _right_box;
 
+	public Image touchButtonLeft;
+	public Image touchButtonRight;
+	public Image touchButtonJump;
+	private Rect _touchMoveLeft = new Rect(0, 0, Screen.width / 3, 2*Screen.height / 3);
+	private Rect _touchMoveRight = new Rect(0, 0, Screen.width / 3, 2*Screen.height / 3);
+	private Rect _touchJump = new Rect(0, 0, Screen.width / 3, 2*Screen.height / 3);
+	private Rect _touchFireA = new Rect(0, 0, Screen.width / 3, 2*Screen.height / 3);
+
 	// Use this for initialization
 	void Start () {
 		_anim = GetComponentInChildren<Animator>();
@@ -67,6 +76,27 @@ public class Player : MonoBehaviour {
 		_bottom_right = GetComponents<CircleCollider2D> () [1];
 		_left_box = GetComponents<BoxCollider2D> () [2];
 		_right_box = GetComponents<BoxCollider2D> () [3];
+
+
+
+		_touchMoveLeft = new Rect (
+			touchButtonLeft.rectTransform.anchorMin.x*Screen.width + touchButtonLeft.rectTransform.anchoredPosition.x - touchButtonLeft.rectTransform.rect.width / 2,
+			touchButtonLeft.rectTransform.anchorMin.y*Screen.height + touchButtonLeft.rectTransform.anchoredPosition.y - touchButtonLeft.rectTransform.rect.height / 2,
+			touchButtonLeft.rectTransform.anchorMin.x*Screen.width + touchButtonLeft.rectTransform.anchoredPosition.x + touchButtonLeft.rectTransform.rect.width / 2,
+			touchButtonLeft.rectTransform.anchorMin.y*Screen.height + touchButtonLeft.rectTransform.anchoredPosition.y + touchButtonLeft.rectTransform.rect.height / 2
+		);
+		_touchMoveRight = new Rect (
+			touchButtonRight.rectTransform.anchorMin.x*Screen.width + touchButtonRight.rectTransform.anchoredPosition.x - touchButtonRight.rectTransform.rect.width / 2,
+			touchButtonRight.rectTransform.anchorMin.y*Screen.height + touchButtonRight.rectTransform.anchoredPosition.y - touchButtonRight.rectTransform.rect.height / 2, 
+			touchButtonRight.rectTransform.anchorMin.x*Screen.width + touchButtonRight.rectTransform.anchoredPosition.x + touchButtonRight.rectTransform.rect.width / 2,
+			touchButtonRight.rectTransform.anchorMin.y*Screen.height + touchButtonRight.rectTransform.anchoredPosition.y + touchButtonRight.rectTransform.rect.height / 2
+		);
+		_touchJump = new Rect (
+			touchButtonJump.rectTransform.anchorMin.x*Screen.width + touchButtonJump.rectTransform.anchoredPosition.x - touchButtonJump.rectTransform.rect.width / 2,
+			touchButtonJump.rectTransform.anchorMin.y*Screen.height + touchButtonJump.rectTransform.anchoredPosition.y - touchButtonJump.rectTransform.rect.height / 2,
+			touchButtonJump.rectTransform.anchorMin.x*Screen.width + touchButtonJump.rectTransform.anchoredPosition.x + touchButtonJump.rectTransform.rect.width / 2,
+			touchButtonJump.rectTransform.anchorMin.y*Screen.height + touchButtonJump.rectTransform.anchoredPosition.y + touchButtonJump.rectTransform.rect.height / 2
+		);
 	}
 
 
@@ -78,11 +108,20 @@ public class Player : MonoBehaviour {
 		bool isJumpUp = false;
 
 		if (Input.touchCount > 0) {
-			Touch t = Input.touches [0];
-			if (t.position.x > Screen.width / 3 && t.position.x < 2*Screen.width / 3 && t.position.y < Screen.height / 3) {
-				isJumpDown = true;
-				_wasJumpDown = true;
+			bool foundJump = false;
+			foreach (Touch t in Input.touches) {
+				if (_touchJump.Contains (t.position)) {
+					isJumpDown = true;
+					_wasJumpDown = true;
+					foundJump = true;
+				}
 			}
+
+			if (!foundJump && _wasJumpDown) {
+				_wasJumpDown = false;
+				isJumpUp = true;
+			}
+
 		} else if (_wasJumpDown) {
 			_wasJumpDown = false;
 			isJumpUp = true;
@@ -128,15 +167,16 @@ public class Player : MonoBehaviour {
 		float move = 0.0f;
 
 		if(Input.touchCount > 0) {
-			Touch t = Input.touches [0];
-			if (t.position.x >= 0 && t.position.x < Screen.width / 3 && t.position.y < Screen.height / 3) {
-				move = -1.0f;
-			} else if (t.position.x > 2*Screen.width / 3 && t.position.y < Screen.height / 3) {
-				move = 1.0f;
+			foreach (Touch t in Input.touches) {
+				if (_touchMoveLeft.Contains (t.position)) {
+					move = -1.0f;
+				} else if (_touchMoveRight.Contains (t.position)) {
+					move = 1.0f;
+				}
 			}
 		}
 		else {
-			Input.GetAxis ("Horizontal");
+			move = Input.GetAxis ("Horizontal");
 		}
 
 		detectWalls();

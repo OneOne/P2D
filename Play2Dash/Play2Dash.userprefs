@@ -2,11 +2,17 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Player.cs">
     <Files>
-      <File FileName="Assets\Scripts\Player.cs" Line="134" Column="66" />
-      <File FileName="Assets\PlayerColliderGenerator.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\lifeBar.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Shot.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Player.cs" Line="137" Column="18" />
+      <File FileName="Assets\Scripts\CameraScript.cs" Line="19" Column="1" />
+      <File FileName="Assets\Scripts\PlayerColliderGenerator.cs" Line="1" Column="1" />
     </Files>
+    <Pads>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State>
+          <Value>touchButtonJump</Value>
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
@@ -21,4 +27,8 @@
     <Watch file="Assets\Scripts\Player.cs" line="90" offsetX="748" offsetY="1409" expression="_firstJumpEnd" liveUpdate="False" />
     <Watch file="Assets\Scripts\Player.cs" line="90" offsetX="748" offsetY="1439" expression="_secondJump" liveUpdate="False" />
   </MonoDevelop.Ide.DebuggingService.PinnedWatches>
+  <DisabledProjects>
+    <String>Play2Dash.CSharp.csproj</String>
+    <String>Play2Dash.CSharp.Editor.csproj</String>
+  </DisabledProjects>
 </Properties>
