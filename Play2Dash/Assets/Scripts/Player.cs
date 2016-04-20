@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class playerHit : GameEvent{
 	public int health;
@@ -14,14 +15,7 @@ public class Player : MonoBehaviour {
 	public float MoveSpeed = 800.0f;
 	public float JumpSpeed = 1000.0f;
 	public float MinJumpSpeed = 200.0f;
-	/*public float LongJumpTime = 0.3f;
-	public float LongJumpSpeed = 16f;*/
 
-	/*public Transform FrontCorner1;
-	public Transform FrontCorner2;
-	public Transform BottomCorner1;
-	public Transform BottomCorner2;*/
-	//public LayerMask GroundLayer;
 	LayerMask wallsMask;
 
 	public float TouchDetectionRadius = 0.2f;
@@ -33,7 +27,7 @@ public class Player : MonoBehaviour {
 	int deathHash = Animator.StringToHash("death");
 	int grindHash = Animator.StringToHash("grind");
 	int groundedHash = Animator.StringToHash("grounded");
-	int health = 100;
+	public int Health = 100;
 
 
 	private bool _facingRight = false;
@@ -43,9 +37,9 @@ public class Player : MonoBehaviour {
 	private bool _firstJump =  false;
 	private bool _firstJumpEnd =  false;
 	private bool _secondJump =  false;
-	/*private bool _longJump =  false;
-	private float _jumpTime = 0.0f;*/
 	private bool _grinding = false;
+
+	private bool _shoot = false;
 
 	private Rigidbody2D _rigidBody2D;
 
@@ -57,13 +51,25 @@ public class Player : MonoBehaviour {
 	private BoxCollider2D _left_box;
 	private BoxCollider2D _right_box;
 
-	public Image touchButtonLeft;
-	public Image touchButtonRight;
-	public Image touchButtonJump;
-	private Rect _touchMoveLeft = new Rect(0, 0, Screen.width / 3, 2*Screen.height / 3);
-	private Rect _touchMoveRight = new Rect(0, 0, Screen.width / 3, 2*Screen.height / 3);
-	private Rect _touchJump = new Rect(0, 0, Screen.width / 3, 2*Screen.height / 3);
-	private Rect _touchFireA = new Rect(0, 0, Screen.width / 3, 2*Screen.height / 3);
+
+
+	public ButtonScript BSMoveLeft;
+	public ButtonScript BSMoveRight;
+	public ButtonScript BSJump;
+	public ButtonScript BSFireA;
+	public ButtonScript BSFireB;   
+
+	public GameObject ShootPrefab;
+	public float ShootSpeed = 1000.0f;
+	public float ShootCoolDown = 0.3f;
+
+//	public Button ButtonLeft;
+//	public Button ButtonRight;
+//	public Button ButtonJump;
+//	private Rect _touchMoveLeft = new Rect(0, 0, Screen.width / 3, 2*Screen.height / 3);
+//	private Rect _touchMoveRight = new Rect(0, 0, Screen.width / 3, 2*Screen.height / 3);
+//	private Rect _touchJump = new Rect(0, 0, Screen.width / 3, 2*Screen.height / 3);
+//	private Rect _touchFireA = new Rect(0, 0, Screen.width / 3, 2*Screen.height / 3);
 
 	// Use this for initialization
 	void Start () {
@@ -77,59 +83,68 @@ public class Player : MonoBehaviour {
 		_left_box = GetComponents<BoxCollider2D> () [2];
 		_right_box = GetComponents<BoxCollider2D> () [3];
 
+//		BSMoveLeft = ButtonState.None;
+//		BSMoveRight = ButtonState.None;
+//		BSJump = ButtonState.None;
+//		BSFireA = ButtonState.None;
+//		BSFireB = ButtonState.None;
 
 
-		_touchMoveLeft = new Rect (
-			touchButtonLeft.rectTransform.anchorMin.x*Screen.width + touchButtonLeft.rectTransform.anchoredPosition.x - touchButtonLeft.rectTransform.rect.width / 2,
-			touchButtonLeft.rectTransform.anchorMin.y*Screen.height + touchButtonLeft.rectTransform.anchoredPosition.y - touchButtonLeft.rectTransform.rect.height / 2,
-			touchButtonLeft.rectTransform.anchorMin.x*Screen.width + touchButtonLeft.rectTransform.anchoredPosition.x + touchButtonLeft.rectTransform.rect.width / 2,
-			touchButtonLeft.rectTransform.anchorMin.y*Screen.height + touchButtonLeft.rectTransform.anchoredPosition.y + touchButtonLeft.rectTransform.rect.height / 2
-		);
-		_touchMoveRight = new Rect (
-			touchButtonRight.rectTransform.anchorMin.x*Screen.width + touchButtonRight.rectTransform.anchoredPosition.x - touchButtonRight.rectTransform.rect.width / 2,
-			touchButtonRight.rectTransform.anchorMin.y*Screen.height + touchButtonRight.rectTransform.anchoredPosition.y - touchButtonRight.rectTransform.rect.height / 2, 
-			touchButtonRight.rectTransform.anchorMin.x*Screen.width + touchButtonRight.rectTransform.anchoredPosition.x + touchButtonRight.rectTransform.rect.width / 2,
-			touchButtonRight.rectTransform.anchorMin.y*Screen.height + touchButtonRight.rectTransform.anchoredPosition.y + touchButtonRight.rectTransform.rect.height / 2
-		);
-		_touchJump = new Rect (
-			touchButtonJump.rectTransform.anchorMin.x*Screen.width + touchButtonJump.rectTransform.anchoredPosition.x - touchButtonJump.rectTransform.rect.width / 2,
-			touchButtonJump.rectTransform.anchorMin.y*Screen.height + touchButtonJump.rectTransform.anchoredPosition.y - touchButtonJump.rectTransform.rect.height / 2,
-			touchButtonJump.rectTransform.anchorMin.x*Screen.width + touchButtonJump.rectTransform.anchoredPosition.x + touchButtonJump.rectTransform.rect.width / 2,
-			touchButtonJump.rectTransform.anchorMin.y*Screen.height + touchButtonJump.rectTransform.anchoredPosition.y + touchButtonJump.rectTransform.rect.height / 2
-		);
+//		_touchMoveLeft = new Rect (
+//			ButtonLeft.rectTransform.anchorMin.x*Screen.width + 	touchButtonLeft.rectTransform.anchoredPosition.x - touchButtonLeft.rectTransform.rect.width / 2,
+//			ButtonLeft.rectTransform.anchorMin.y*Screen.height + 	touchButtonLeft.rectTransform.anchoredPosition.y - touchButtonLeft.rectTransform.rect.height / 2,
+//			ButtonLeft.rectTransform.anchorMin.x*Screen.width + 	touchButtonLeft.rectTransform.anchoredPosition.x + touchButtonLeft.rectTransform.rect.width / 2,
+//			ButtonLeft.rectTransform.anchorMin.y*Screen.height + 	touchButtonLeft.rectTransform.anchoredPosition.y + touchButtonLeft.rectTransform.rect.height / 2
+//		);
+//		_touchMoveRight = new Rect (
+//			touchButtonRight.rectTransform.anchorMin.x*Screen.width + touchButtonRight.rectTransform.anchoredPosition.x - touchButtonRight.rectTransform.rect.width / 2,
+//			touchButtonRight.rectTransform.anchorMin.y*Screen.height + touchButtonRight.rectTransform.anchoredPosition.y - touchButtonRight.rectTransform.rect.height / 2, 
+//			touchButtonRight.rectTransform.anchorMin.x*Screen.width + touchButtonRight.rectTransform.anchoredPosition.x + touchButtonRight.rectTransform.rect.width / 2,
+//			touchButtonRight.rectTransform.anchorMin.y*Screen.height + touchButtonRight.rectTransform.anchoredPosition.y + touchButtonRight.rectTransform.rect.height / 2
+//		);
+//		_touchJump = new Rect (
+//			touchButtonJump.rectTransform.anchorMin.x*Screen.width + touchButtonJump.rectTransform.anchoredPosition.x - touchButtonJump.rectTransform.rect.width / 2,
+//			touchButtonJump.rectTransform.anchorMin.y*Screen.height + touchButtonJump.rectTransform.anchoredPosition.y - touchButtonJump.rectTransform.rect.height / 2,
+//			touchButtonJump.rectTransform.anchorMin.x*Screen.width + touchButtonJump.rectTransform.anchoredPosition.x + touchButtonJump.rectTransform.rect.width / 2,
+//			touchButtonJump.rectTransform.anchorMin.y*Screen.height + touchButtonJump.rectTransform.anchoredPosition.y + touchButtonJump.rectTransform.rect.height / 2
+//		);
 	}
 
 
 
-	private bool _wasJumpDown = false;
+	//private bool _wasJumpDown = false;
 
 	void Update() {
 		bool isJumpDown = false;
 		bool isJumpUp = false;
 
-		if (Input.touchCount > 0) {
-			bool foundJump = false;
-			foreach (Touch t in Input.touches) {
-				if (_touchJump.Contains (t.position)) {
-					isJumpDown = true;
-					_wasJumpDown = true;
-					foundJump = true;
-				}
-			}
+//		if (Input.touchCount > 0) {
+//			bool foundJump = false;
+//			foreach (Touch t in Input.touches) {
+//				if (_touchJump.Contains (t.position)) {
+//					isJumpDown = true;
+//					_wasJumpDown = true;
+//					foundJump = true;
+//				}
+//			}
+//
+//			if (!foundJump && _wasJumpDown) {
+//				_wasJumpDown = false;
+//				isJumpUp = true;
+//			}
+//
+//		} else if (_wasJumpDown) {
+//			_wasJumpDown = false;
+//			isJumpUp = true;
+//		} else {
+//			isJumpDown = Input.GetButtonDown ("Jump");
+//			isJumpUp = Input.GetButtonUp ("Jump");
+//		}
 
-			if (!foundJump && _wasJumpDown) {
-				_wasJumpDown = false;
-				isJumpUp = true;
-			}
+		isJumpDown = Input.GetButtonDown ("Jump") || (BSJump.CurrentState == ButtonScript.ButtonState.Down);
+		isJumpUp = Input.GetButtonUp ("Jump") || (BSJump.CurrentState == ButtonScript.ButtonState.Up);
 
-		} else if (_wasJumpDown) {
-			_wasJumpDown = false;
-			isJumpUp = true;
-		} else {
-			isJumpDown = Input.GetButtonDown ("Jump");
-			isJumpUp = Input.GetButtonUp ("Jump");
-		}
-			
+
 
 		if (isJumpDown) {
 			if (!_firstJump && (_bottomTouched || _grinding)) {
@@ -166,20 +181,37 @@ public class Player : MonoBehaviour {
 	void FixedUpdate () {
 		float move = 0.0f;
 
-		if(Input.touchCount > 0) {
-			foreach (Touch t in Input.touches) {
-				if (_touchMoveLeft.Contains (t.position)) {
-					move = -1.0f;
-				} else if (_touchMoveRight.Contains (t.position)) {
-					move = 1.0f;
-				}
-			}
-		}
-		else {
+//		if(Input.touchCount > 0) {
+//			foreach (Touch t in Input.touches) {
+//				if (_touchMoveLeft.Contains (t.position)) {
+//					move = -1.0f;
+//				} else if (_touchMoveRight.Contains (t.position)) {
+//					move = 1.0f;
+//				}
+//			}
+//		}
+//		else {
+//			move = Input.GetAxis ("Horizontal");
+//		}
+
+		if (BSMoveLeft.CurrentState == ButtonScript.ButtonState.Down)
+			move = -1.0f;
+		else if (BSMoveRight.CurrentState == ButtonScript.ButtonState.Down)
+			move = 1.0f;
+		else
 			move = Input.GetAxis ("Horizontal");
+
+		if (!_shoot && (BSFireA.CurrentState == ButtonScript.ButtonState.Down /*|| Input.GetAxis("Fire1")==1*/)) {
+			_shoot = true;
+			GameObject shotInstance = (GameObject)Instantiate (ShootPrefab);
+			shotInstance.GetComponent<Shot> ().moveVector = _facingRight ? new Vector2 (-ShootSpeed, 0) : new Vector2 (ShootSpeed, 0);
+			shotInstance.transform.position = _facingRight ? new Vector3(this.transform.position.x-100, this.transform.position.y + 150, this.transform.position.z) : new Vector3(this.transform.position.x+100, this.transform.position.y + 150, this.transform.position.z);
+			Invoke("ResetShoot", ShootCoolDown);
 		}
 
-		detectWalls();
+
+
+		DetectWalls();
 		moveDeb = Mathf.Abs(move);
 
 		// Evalute states
@@ -237,12 +269,17 @@ public class Player : MonoBehaviour {
 		transform.localScale = lScale;
 	}
 
-	public void hit(int hitValue){
-		health -= hitValue;
-		playerHit _playerHitEvent = new playerHit(health);
+	void ResetShoot()
+	{
+		_shoot = false;
+	}
+
+	public void Hit (int hitValue){
+		Health -= hitValue;
+		playerHit _playerHitEvent = new playerHit(Health);
 		_anim.SetTrigger(hitHash);
 		Events.instance.Raise(_playerHitEvent);
-		if(health <= 0){
+		if(Health <= 0){
 			_anim.SetTrigger(deathHash);
 			this.enabled = false;
 		}
@@ -252,7 +289,7 @@ public class Player : MonoBehaviour {
 	public bool frontHitOn = false;
 	public float moveDeb;
 
-	void detectWalls(){
+	void DetectWalls(){
 		Vector2 grindRayDir;
 		if(_facingRight == false){
 			grindRayDir = Vector2.right;

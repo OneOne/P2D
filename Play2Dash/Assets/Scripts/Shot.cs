@@ -23,7 +23,7 @@ public class Shot : MonoBehaviour {
 		anim.SetTrigger(collideHash);
 		GameObject collider = other.gameObject;
 		if(collider.GetComponentInParent<Player>() != null && other is BoxCollider2D == true){
-			collider.GetComponentInParent<Player>().hit(hitDamage);
+			collider.GetComponentInParent<Player>().Hit(hitDamage);
 		};
 	}
 
