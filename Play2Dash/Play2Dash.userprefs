@@ -1,16 +1,18 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Player.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\TileManager.cs">
     <Files>
-      <File FileName="Assets\Scripts\Player.cs" Line="174" Column="25" />
+      <File FileName="Assets\Scripts\TileManager.cs" Line="67" Column="60" />
+      <File FileName="Assets\Scripts\Player.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\CameraScript.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\PlayerColliderGenerator.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ButtonScript.cs" Line="25" Column="72" />
+      <File FileName="Assets\Scripts\ButtonScript.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <FunctionBreakpoint enabled="false" line="70" column="1" function="move&gt;0" language="C#" />
+      <Breakpoint file="C:\Users\Michael\Desktop\P2D\Play2Dash\Assets\Scripts\TileManager.cs" line="56" column="16" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>
