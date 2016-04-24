@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿#if UNITY_EDITOR
+
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -60,9 +62,41 @@ public class TileManager : MonoBehaviour {
 					tile.name = "Tile " + i + " " + j;
 					tile.transform.position = new Vector3 ((float)(i * TileSize), (float)(j * TileSize), this.transform.position.z);
 					tile.transform.parent = this.transform;
+					tile.layer = LayerMask.NameToLayer("Walls");
 
 					SpriteRenderer sr = tile.AddComponent<SpriteRenderer> ();
-					sr.sprite = Tileset [1];
+
+					if (j + 1 >= 0) {
+						Color pixelAbove = iMap.GetPixel (i, j + 1);
+						if (pixelAbove.a != 0) {
+							sr.sprite = Tileset [4];
+						} else {
+							if (i - 1 >= 0) {
+								Color pixelLeft = iMap.GetPixel (i - 1, j);
+								if (pixelLeft.a == 0) {
+									sr.sprite = Tileset [0];
+								} else {
+									if (i + 1 < iMap.width) {
+										Color pixelRight = iMap.GetPixel (i + 1, j);
+										if (pixelRight.a == 0) {
+											sr.sprite = Tileset [2];
+										} else {
+											sr.sprite = Tileset [1];
+										}
+									}	
+									else {
+										Debug.LogAssertion ("BAD TEXTURE MARGIN");
+									}
+								}
+							}
+							else {
+								Debug.LogAssertion ("BAD TEXTURE MARGIN");
+							}
+						}
+					} else {
+						Debug.LogAssertion ("BAD TEXTURE MARGIN");
+					}
+
 
 					BoxCollider2D bc =tile.AddComponent<BoxCollider2D> ();
 
@@ -75,3 +109,4 @@ public class TileManager : MonoBehaviour {
 }
 
 
+#endif
