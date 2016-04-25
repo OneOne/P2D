@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 926063a5ccaa840499350a735b9ecfef
-timeCreated: 1461267653
+guid: d94a2fdde6d031a40a20ed22fb06e4f0
+timeCreated: 1461621475
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -34,10 +34,10 @@ TextureImporter:
   cubemapConvolutionSteps: 7
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
-  textureFormat: -3
+  textureFormat: -1
   maxTextureSize: 2048
   textureSettings:
-    filterMode: 0
+    filterMode: -1
     aniso: 16
     mipBias: -1
     wrapMode: 1
@@ -65,18 +65,18 @@ TextureImporter:
         y: 50
         width: 40
         height: 50
-      alignment: 1
-      pivot: {x: 0, y: 1}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: 9, y: 0}
-        - {x: 1, y: -20}
-        - {x: 1, y: -44}
-        - {x: 7, y: -50}
-        - {x: 36, y: -50}
-        - {x: 37, y: -47}
-        - {x: 37, y: -7}
-        - {x: 35, y: 0}
+      - - {x: -11, y: 50}
+        - {x: -19, y: 30}
+        - {x: -19, y: 6}
+        - {x: -13, y: 0}
+        - {x: 16, y: 0}
+        - {x: 17, y: 3}
+        - {x: 17, y: 43}
+        - {x: 15, y: 50}
     - name: SpritSheet_walkPhase_1
       rect:
         serializedVersion: 2
@@ -84,16 +84,16 @@ TextureImporter:
         y: 50
         width: 40
         height: 50
-      alignment: 1
-      pivot: {x: 0, y: 1}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: 1, y: 0}
-        - {x: 0, y: -4}
-        - {x: 0, y: -50}
-        - {x: 39, y: -50}
-        - {x: 39, y: -11}
-        - {x: 35, y: 0}
+      - - {x: -19, y: 50}
+        - {x: -20, y: 46}
+        - {x: -20, y: 0}
+        - {x: 19, y: 0}
+        - {x: 19, y: 39}
+        - {x: 15, y: 50}
     - name: SpritSheet_walkPhase_2
       rect:
         serializedVersion: 2
@@ -101,19 +101,19 @@ TextureImporter:
         y: 50
         width: 40
         height: 50
-      alignment: 1
-      pivot: {x: 0, y: 1}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: 39, y: 0}
-        - {x: 3, y: 0}
-        - {x: 0, y: -8}
-        - {x: 0, y: -42}
-        - {x: 13, y: -50}
-        - {x: 31, y: -50}
-        - {x: 36, y: -46}
-        - {x: 40, y: -41}
-        - {x: 40, y: -7}
+      - - {x: 19, y: 50}
+        - {x: -17, y: 50}
+        - {x: -20, y: 42}
+        - {x: -20, y: 8}
+        - {x: -7, y: 0}
+        - {x: 11, y: 0}
+        - {x: 16, y: 4}
+        - {x: 20, y: 9}
+        - {x: 20, y: 43}
     - name: SpritSheet_walkPhase_3
       rect:
         serializedVersion: 2
@@ -121,17 +121,17 @@ TextureImporter:
         y: 50
         width: 40
         height: 50
-      alignment: 1
-      pivot: {x: 0, y: 1}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: 10, y: 0}
-        - {x: 0, y: -20}
-        - {x: 0, y: -39}
-        - {x: 14, y: -50}
-        - {x: 28, y: -50}
-        - {x: 38, y: -40}
-        - {x: 38, y: 0}
+      - - {x: -10, y: 50}
+        - {x: -20, y: 30}
+        - {x: -20, y: 11}
+        - {x: -6, y: 0}
+        - {x: 8, y: 0}
+        - {x: 18, y: 10}
+        - {x: 18, y: 50}
     - name: SpritSheet_walkPhase_4
       rect:
         serializedVersion: 2
@@ -139,18 +139,18 @@ TextureImporter:
         y: 0
         width: 40
         height: 50
-      alignment: 1
-      pivot: {x: 0, y: 1}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: 17, y: 0}
-        - {x: 11, y: -2}
-        - {x: 0, y: -18}
-        - {x: 0, y: -40}
-        - {x: 8, y: -50}
-        - {x: 37, y: -50}
-        - {x: 38, y: -45}
-        - {x: 38, y: 0}
+      - - {x: -3, y: 50}
+        - {x: -9, y: 48}
+        - {x: -20, y: 32}
+        - {x: -20, y: 10}
+        - {x: -12, y: 0}
+        - {x: 17, y: 0}
+        - {x: 18, y: 5}
+        - {x: 18, y: 50}
     - name: SpritSheet_walkPhase_5
       rect:
         serializedVersion: 2
@@ -158,19 +158,19 @@ TextureImporter:
         y: 0
         width: 40
         height: 50
-      alignment: 1
-      pivot: {x: 0, y: 1}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: 14, y: 0}
-        - {x: 0, y: -20}
-        - {x: 0, y: -38}
-        - {x: 3, y: -42}
-        - {x: 6, y: -44}
-        - {x: 13, y: -50}
-        - {x: 39, y: -50}
-        - {x: 40, y: -42}
-        - {x: 40, y: 0}
+      - - {x: -6, y: 50}
+        - {x: -20, y: 30}
+        - {x: -20, y: 12}
+        - {x: -17, y: 8}
+        - {x: -14, y: 6}
+        - {x: -7, y: 0}
+        - {x: 19, y: 0}
+        - {x: 20, y: 8}
+        - {x: 20, y: 50}
     - name: SpritSheet_walkPhase_6
       rect:
         serializedVersion: 2
@@ -178,17 +178,17 @@ TextureImporter:
         y: 0
         width: 40
         height: 50
-      alignment: 1
-      pivot: {x: 0, y: 1}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: 12, y: -1}
-        - {x: 0, y: -6}
-        - {x: 0, y: -41}
-        - {x: 4, y: -50}
-        - {x: 29, y: -50}
-        - {x: 40, y: -39}
-        - {x: 40, y: -1}
+      - - {x: -8, y: 49}
+        - {x: -20, y: 44}
+        - {x: -20, y: 9}
+        - {x: -16, y: 0}
+        - {x: 9, y: 0}
+        - {x: 20, y: 11}
+        - {x: 20, y: 49}
     - name: SpritSheet_walkPhase_7
       rect:
         serializedVersion: 2
@@ -196,17 +196,17 @@ TextureImporter:
         y: 0
         width: 40
         height: 50
-      alignment: 1
-      pivot: {x: 0, y: 1}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: 10, y: 0}
-        - {x: 0, y: -11}
-        - {x: 0, y: -46}
-        - {x: 6, y: -50}
-        - {x: 26, y: -50}
-        - {x: 38, y: -43}
-        - {x: 38, y: 0}
+      - - {x: -10, y: 50}
+        - {x: -20, y: 39}
+        - {x: -20, y: 4}
+        - {x: -14, y: 0}
+        - {x: 6, y: 0}
+        - {x: 18, y: 7}
+        - {x: 18, y: 50}
     outline: []
   spritePackingTag: 
   userData: 
