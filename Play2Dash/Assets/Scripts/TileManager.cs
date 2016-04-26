@@ -18,8 +18,8 @@ public class TileManager : MonoBehaviour {
 
 
 
-	private Sprite[] Tileset;
-	private List<GameObject> _tiles = new List<GameObject>();	
+	public GameObject[] TilesPrefab;
+	private List<GameObject> _generatedTiles = new List<GameObject>();	
 
 	// Use this for initialization
 	void Start () {
@@ -28,9 +28,9 @@ public class TileManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (DoGenerate) {
-			string spritePath = AssetDatabase.GetAssetPath(GroundTileset);
-			Tileset = AssetDatabase.LoadAllAssetsAtPath (spritePath).OfType<Sprite>().ToArray();
-			if(Tileset.Length >0)
+			//string spritePath = AssetDatabase.GetAssetPath(GroundTileset);
+			//TilesPrefab = AssetDatabase.LoadAllAssetsAtPath (spritePath).OfType<Sprite>().ToArray();
+			if(TilesPrefab.Length >0)
 				LoadMap (Map);
 			DoGenerate = false;
 		}
@@ -41,10 +41,10 @@ public class TileManager : MonoBehaviour {
 	void LoadMap(Texture2D iMap)
 	{
 		// clean
-		foreach (GameObject g in _tiles) {
+		foreach (GameObject g in _generatedTiles) {
 			DestroyImmediate (g);
 		}
-		_tiles.Clear();
+		_generatedTiles.Clear();
 
 		//Texture2D tex = new Texture2D(0, 0);
 		//tex.LoadImage(iMap.bytes);
@@ -57,50 +57,107 @@ public class TileManager : MonoBehaviour {
 
 				if (pixel.a != 0)
 				{
-					//GameObject tile = (GameObject)Instantiate (GameObject, new Vector3 ((float)(i * TileSize), (float)(j * TileSize), this.transform.position.z), new Quaternion ());
-					GameObject tile = new GameObject();
+					if (j - 1 < 0 || j + 1 > iMap.height || i - 1 < 0 || i + 1 > iMap.width) {
+						Debug.LogError ("BAD TEXTURE MARGIN");
+						continue;
+					}
+
+					bool hasPixelAbove = iMap.GetPixel (i, j + 1).a != 0;
+					bool hasPixelOnTheLeft = iMap.GetPixel (i - 1, j).a != 0;
+					bool hasPixelOnTheRight = iMap.GetPixel (i + 1, j).a != 0;
+					bool hasPixelUnder = iMap.GetPixel (i, j - 1).a != 0;
+
+					int tileIndex = 4;
+
+					if (!hasPixelAbove) {
+						if (!hasPixelUnder) {
+							if (!hasPixelOnTheLeft) {
+								if (!hasPixelOnTheRight) {
+									// nothing around
+								} else {
+									// nothing but right
+									tileIndex = 9;
+								}
+							} else {
+								if (!hasPixelOnTheRight) {
+									// nothing but left
+									tileIndex = 11;
+								} else {
+									// something left and right
+									tileIndex = 10;
+								}
+							}
+						} else {
+							if (!hasPixelOnTheLeft) {
+								if (!hasPixelOnTheRight) {
+									// something under
+									tileIndex = 12;
+								} else {
+									// something right and under
+									tileIndex = 0;
+								}
+							} else {
+								if (!hasPixelOnTheRight) {
+									// something left and under
+									tileIndex = 2;
+								} else {
+									// something left, right and under
+									tileIndex = 1;
+								}
+							}
+						}
+					} else {
+						if (!hasPixelUnder) {
+							if (!hasPixelOnTheLeft) {
+								if (!hasPixelOnTheRight) {
+									// something above
+									tileIndex = 14;
+								} else {
+									// something right and above
+									tileIndex = 6;
+								}
+							} else {
+								if (!hasPixelOnTheRight) {
+									// something left and above
+									tileIndex = 8;
+								} else {
+									// something left, right and above
+									tileIndex = 7;
+								}
+							}
+						} else {
+							if (!hasPixelOnTheLeft) {
+								if (!hasPixelOnTheRight) {
+									// something above and under
+									tileIndex = 13;
+								} else {
+									// something right, above and under
+									tileIndex = 3;
+								}
+							} else {
+								if (!hasPixelOnTheRight) {
+									// something left, above and under
+									tileIndex = 5;
+								} else {
+									// something left, right , above and under
+									tileIndex = 4;
+								}
+							}
+						}
+					}
+						
+
+					GameObject tile = (GameObject)Instantiate (TilesPrefab[tileIndex], new Vector3 ((float)(i * TileSize), (float)(j * TileSize), this.transform.position.z), new Quaternion ());
 					tile.name = "Tile " + i + " " + j;
-					tile.transform.position = new Vector3 ((float)(i * TileSize), (float)(j * TileSize), this.transform.position.z);
+					//tile.transform.position = new Vector3 ((float)(i * TileSize), (float)(j * TileSize), this.transform.position.z);
 					tile.transform.parent = this.transform;
 					tile.layer = LayerMask.NameToLayer("Walls");
 
 					SpriteRenderer sr = tile.AddComponent<SpriteRenderer> ();
 
-					if (j + 1 >= 0) {
-						Color pixelAbove = iMap.GetPixel (i, j + 1);
-						if (pixelAbove.a != 0) {
-							sr.sprite = Tileset [4];
-						} else {
-							if (i - 1 >= 0) {
-								Color pixelLeft = iMap.GetPixel (i - 1, j);
-								if (pixelLeft.a == 0) {
-									sr.sprite = Tileset [0];
-								} else {
-									if (i + 1 < iMap.width) {
-										Color pixelRight = iMap.GetPixel (i + 1, j);
-										if (pixelRight.a == 0) {
-											sr.sprite = Tileset [2];
-										} else {
-											sr.sprite = Tileset [1];
-										}
-									}	
-									else {
-										Debug.LogAssertion ("BAD TEXTURE MARGIN");
-									}
-								}
-							}
-							else {
-								Debug.LogAssertion ("BAD TEXTURE MARGIN");
-							}
-						}
-					} else {
-						Debug.LogAssertion ("BAD TEXTURE MARGIN");
-					}
+					//BoxCollider2D bc =tile.AddComponent<BoxCollider2D> ();
 
-
-					BoxCollider2D bc =tile.AddComponent<BoxCollider2D> ();
-
-					_tiles.Add(tile);
+					_generatedTiles.Add(tile);
 
 				}
 			}
