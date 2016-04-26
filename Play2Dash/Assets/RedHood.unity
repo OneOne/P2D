@@ -56618,6 +56618,7 @@ MonoBehaviour:
   ShootPrefab: {fileID: 174666, guid: 90b6d05f710ec70409bdbcd7a3aeb4ed, type: 2}
   ShootSpeed: 300
   ShootCoolDown: 0.3
+  idleTimer: 0
   frontHitOn: 0
   moveDeb: 0
 --- !u!50 &1863661019

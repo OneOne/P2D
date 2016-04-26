@@ -25,8 +25,8 @@ public class Player : MonoBehaviour {
 	int jumpHash = Animator.StringToHash("jump");
 	int hitHash = Animator.StringToHash("hit");
 	int deathHash = Animator.StringToHash("death");
-	int grindHash = Animator.StringToHash("grind");
 	int groundedHash = Animator.StringToHash("grounded");
+    int idleHash = Animator.StringToHash("idle");
 	public int Health = 100;
 
 
@@ -37,21 +37,16 @@ public class Player : MonoBehaviour {
 	private bool _firstJump =  false;
 	private bool _firstJumpEnd =  false;
 	private bool _secondJump =  false;
-	private bool _grinding = false;
 
 	private bool _shoot = false;
 
 	private Rigidbody2D _rigidBody2D;
-
-
 
 	private BoxCollider2D _bottom_box;
 	private CircleCollider2D _bottom_left;
 	private CircleCollider2D _bottom_right;
 	private BoxCollider2D _left_box;
 	private BoxCollider2D _right_box;
-
-
 
 	public ButtonScript BSMoveLeft;
 	public ButtonScript BSMoveRight;
@@ -62,6 +57,9 @@ public class Player : MonoBehaviour {
 	public GameObject ShootPrefab;
 	public float ShootSpeed = 1000.0f;
 	public float ShootCoolDown = 0.3f;
+
+    public float idleTimer = 0.0f;
+
 
 //	public Button ButtonLeft;
 //	public Button ButtonRight;
@@ -118,6 +116,18 @@ public class Player : MonoBehaviour {
 		bool isJumpDown = false;
 		bool isJumpUp = false;
 
+        //Idle timer
+        idleTimer += Time.deltaTime;
+
+        if (_rigidBody2D.velocity.x != 0 || _rigidBody2D.velocity.y != 0)
+        {
+            setIdle(false);
+        }
+
+        if (idleTimer >= 2) {
+            setIdle(true);
+        }
+
 //		if (Input.touchCount > 0) {
 //			bool foundJump = false;
 //			foreach (Touch t in Input.touches) {
@@ -147,20 +157,10 @@ public class Player : MonoBehaviour {
 
 
 		if (isJumpDown) {
-			if (!_firstJump && (_bottomTouched || _grinding)) {
+			if (!_firstJump && _bottomTouched) {
 				_firstJump = true;
 				_firstJumpEnd = false;
-
-				// jump whil grinding
-				if (_grinding) {
-					if(_facingRight)
-						_rigidBody2D.velocity = new Vector2 (MoveSpeed, JumpSpeed);
-					else
-						_rigidBody2D.velocity = new Vector2 (-MoveSpeed, JumpSpeed);
-				}
-				// classic jump
-				else
-					_rigidBody2D.velocity = new Vector2 (_rigidBody2D.velocity.x, JumpSpeed);
+				_rigidBody2D.velocity = new Vector2 (_rigidBody2D.velocity.x, JumpSpeed);
 			}
 			else if(_firstJumpEnd && !_secondJump) {
 				_secondJump = true;
@@ -169,6 +169,7 @@ public class Player : MonoBehaviour {
 			}
 
 		}
+
 		else if(isJumpUp) {
 			_firstJump = false;
 			_firstJumpEnd = true;
@@ -209,15 +210,11 @@ public class Player : MonoBehaviour {
 			Invoke("ResetShoot", ShootCoolDown);
 		}
 
-
-
-		DetectWalls();
 		moveDeb = Mathf.Abs(move);
 
 		// Evalute states
 		_bottomTouched = _bottom_box.IsTouchingLayers (wallsMask) || _bottom_left.IsTouchingLayers (wallsMask) || _bottom_right.IsTouchingLayers (wallsMask);
 		_frontTouched = /*_left_box.IsTouchingLayers (wallsMask) ||*/ _right_box.IsTouchingLayers (wallsMask) || _bottom_right.IsTouchingLayers (wallsMask);
-		_grinding = /*Mathf.Abs(move) > 0f &&*/ _frontTouched && !_bottomTouched;
 
 		if(_bottomTouched) {
 			_firstJump = false;
@@ -231,30 +228,20 @@ public class Player : MonoBehaviour {
 		else
 			_anim.SetBool(runHash, false);
 
-		if (_bottomTouched){
-			_anim.SetBool("grounded",true);
-			_anim.SetBool("grind", false);
-		}
-
-		_anim.SetBool("grind",_grinding);
+        if (_bottomTouched)
+        {
+            _anim.SetBool("grounded", true);
+        }
+        else {
+            _anim.SetBool("grounded", false);
+        }
 
 
 
 
 		// classic move
-		if(Mathf.Abs(move) > 0 && !_grinding)
+		if(Mathf.Abs(move) > 0)
 			_rigidBody2D.velocity = new Vector2 (move * MoveSpeed, _rigidBody2D.velocity.y);
-		
-		// grind
-		if (_grinding) {
-			// move while grinding
-			if( (move>0 && _facingRight) || (move<0 && !_facingRight) ) {
-				_rigidBody2D.velocity = new Vector2 (move * MoveSpeed, _rigidBody2D.velocity.y);
-			}
-			// fall
-			_rigidBody2D.velocity = new Vector2 (_rigidBody2D.velocity.x, _rigidBody2D.velocity.y / 1.1f);
-		}
-
 
 		if(_rigidBody2D.velocity.x > 0  && _facingRight)
 			Flip ();				
@@ -289,24 +276,10 @@ public class Player : MonoBehaviour {
 	public bool frontHitOn = false;
 	public float moveDeb;
 
-	void DetectWalls(){
-		Vector2 grindRayDir;
-		if(_facingRight == false){
-			grindRayDir = Vector2.right;
-		}
-		else{
-			grindRayDir = -Vector2.right;
-		}
-
-		RaycastHit2D frontHit = Physics2D.Raycast(transform.position, grindRayDir, 100,wallsMask);
-		Debug.DrawRay(transform.position, grindRayDir * 100, Color.green, 0, false);
-
-		if (frontHit.collider != null) {
-			frontHitOn = true;
-		}
-		else{
-			frontHitOn = false;
-		}
-	}
+    public void setIdle(bool isIdle) {
+        _anim.SetBool(idleHash,isIdle);
+        if(isIdle == false)
+            idleTimer = 0;
+    }
 		
 }
